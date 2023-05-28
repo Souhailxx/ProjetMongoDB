@@ -1,0 +1,28 @@
+POST http://localhost:8080/tache/add/2
+Content-Type: application/json
+
+{
+  "id" : 1,
+  "titre" : "Exam",
+  "description" : "dd",
+  "date_echeance" : "212",
+  "statut_termine" : false
+}
+###
+GET http://localhost:8080/tache/find/1
+###
+POST http://localhost:8080/utilisateur/add
+Content-Type: application/json
+
+{
+  "id": 2,
+  "nom_utilisateur": "Ahmed",
+  "mdp": "emm",
+  "taches": []
+}
+###
+GET http://localhost:8080/utilisateur/1
+###
+DELETE http://localhost:8080/tache/delete/1
+###
+DELETE http://localhost:8080/utilisateur/delete/1
