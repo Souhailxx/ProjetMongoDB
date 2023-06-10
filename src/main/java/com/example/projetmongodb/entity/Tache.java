@@ -1,6 +1,7 @@
 package com.example.projetmongodb.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -14,21 +15,12 @@ import java.util.Set;
 @Data
 @Document(collection = "taches")
 public class Tache implements Serializable {
-
     @Id
-    private Long id;
-
+    private String id;
     private String titre;
-
     private String description;
-
-
-    private String date_echeance;
-
-    private Boolean statut_termine;
-
-    @DBRef
-    private Utilisateur utilisateur;
-
+    private Date dateEcheance;
+    private boolean estTerminee;
+    private String idUtilisateur; // Identifiant de l'utilisateur propriétaire de la tâche
 }
 

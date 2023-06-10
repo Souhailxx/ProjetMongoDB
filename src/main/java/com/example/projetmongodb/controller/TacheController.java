@@ -1,39 +1,43 @@
 package com.example.projetmongodb.controller;
 
 import com.example.projetmongodb.entity.Tache;
-import com.example.projetmongodb.service.TacheService;
+import com.example.projetmongodb.repository.TacheRepository;
+import com.example.projetmongodb.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/tache")
+@RequestMapping("/taches")
 public class TacheController {
+    private final TacheRepository tacheRepository;
+    private final UtilisateurRepository utilisateurRepository;
 
     @Autowired
-    private final TacheService tacheService;
-
-    public TacheController(TacheService tacheService) {
-        this.tacheService = tacheService;
+    public TacheController(TacheRepository tacheRepository, UtilisateurRepository utilisateurRepository) {
+        this.tacheRepository = tacheRepository;
+        this.utilisateurRepository = utilisateurRepository;
     }
 
-    @PostMapping("/add/{id}")
-    public Tache addTache(@PathVariable("id")Long id,@RequestBody Tache tache){
-        return tacheService.addTache(id,tache);
+    @GetMapping("/{id}/all")
+    public List<Tache> findAllTacheByUtilisateur(@PathVariable("id") String id){
+        return tacheRepository.findByIdUtilisateur(id);
     }
-    @GetMapping("/all")
-    public List<Tache> getAllTache(){
-        return tacheService.getAllTache();
+    @PostMapping("/add")
+    public Tache addTache(@RequestBody Tache tache){
+        tache.setId(String.valueOf(UUID.randomUUID()));
+        return tacheRepository.save(tache);
     }
-    @GetMapping("/find/{id}")
-    public Optional<Tache> getTache(@PathVariable("id") Long id){
-        return tacheService.getTache(id);
+    @DeleteMapping("/delete/{idTache}")
+    public void deleteTache(@PathVariable("idTache") String id){
+        tacheRepository.deleteById(id);
     }
-    @DeleteMapping("/delete/{id}")
-    public void deleteTache(@PathVariable("id") Long id){
-        tacheService.deleteTache(id);
-    }
+
+
+
 }

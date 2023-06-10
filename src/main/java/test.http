@@ -1,4 +1,4 @@
-POST http://localhost:8080/tache/add/2
+POST http://localhost:8080/tache/add/1
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ POST http://localhost:8080/utilisateur/add
 Content-Type: application/json
 
 {
-  "id": 2,
+  "id": 1,
   "nom_utilisateur": "Ahmed",
   "mdp": "emm",
   "taches": []
@@ -25,4 +25,4 @@ GET http://localhost:8080/utilisateur/1
 ###
 DELETE http://localhost:8080/tache/delete/1
 ###
-DELETE http://localhost:8080/utilisateur/delete/1
+PUT http://localhost:8080/utilisateur/delete/tache/1/1
