@@ -4,6 +4,7 @@ import com.example.projetmongodb.entity.Tache;
 import com.example.projetmongodb.repository.TacheRepository;
 import com.example.projetmongodb.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,15 @@ public class TacheController {
         tacheRepository.deleteById(id);
     }
 
-
+    @DeleteMapping("/delete/titre/{titreTache}")
+    public void deleteTacheByTitre(@PathVariable("titreTache") String titreTache){
+        tacheRepository.deleteTacheByTitre(titreTache);
+    }
+    @PatchMapping("/{titre}/statut")
+    public void updateStatutTache(@PathVariable("titre") String titre, @RequestParam("estTerminee") boolean estTerminee){
+        Tache tache = tacheRepository.findTacheByTitre(titre);
+        tache.setEstTerminee(estTerminee);
+        tacheRepository.save(tache);
+    }
 
 }
