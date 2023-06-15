@@ -2,9 +2,8 @@ POST http://localhost:8080/utilisateur/add
 Content-Type: application/json
 
 {
-  "id" : 1,
-  "nomUtilisateur" : "AZ",
-  "motDePasse" : "ER"
+  "nomUtilisateur" : "gzllAZaa",
+  "motDePasse" : "gzERa"
 }
 ###
 GET http://localhost:8080/utilisateur/all
@@ -32,3 +31,5 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:8080/taches/1/all
+###
+GET http://localhost:8080/taches/count/Souhail

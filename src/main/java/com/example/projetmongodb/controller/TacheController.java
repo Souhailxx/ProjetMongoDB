@@ -1,16 +1,13 @@
 package com.example.projetmongodb.controller;
 
 import com.example.projetmongodb.entity.Tache;
+import com.example.projetmongodb.entity.Utilisateur;
 import com.example.projetmongodb.repository.TacheRepository;
 import com.example.projetmongodb.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @CrossOrigin
 @RestController
@@ -19,10 +16,13 @@ public class TacheController {
     private final TacheRepository tacheRepository;
     private final UtilisateurRepository utilisateurRepository;
 
+
+
     @Autowired
     public TacheController(TacheRepository tacheRepository, UtilisateurRepository utilisateurRepository) {
         this.tacheRepository = tacheRepository;
         this.utilisateurRepository = utilisateurRepository;
+
     }
 
     @GetMapping("/{id}/all")
@@ -49,5 +49,12 @@ public class TacheController {
         tache.setEstTerminee(estTerminee);
         tacheRepository.save(tache);
     }
+    @GetMapping("/count/{nomUtilisateur}")
+    public int countTachebyUtilisateur(@PathVariable("nomUtilisateur") String nomUtilisateur){
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findByNomUtilisateur(nomUtilisateur);
+        return tacheRepository.countDistinctById(utilisateur.get().getId());
+    }
+
+
 
 }

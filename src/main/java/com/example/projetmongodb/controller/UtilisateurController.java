@@ -4,9 +4,13 @@ import com.example.projetmongodb.entity.Utilisateur;
 import com.example.projetmongodb.repository.TacheRepository;
 import com.example.projetmongodb.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -59,4 +63,19 @@ public class UtilisateurController {
     public void deleteUtilisateurbyNomUtilisateur(@PathVariable("nomUtilisateur") String nomUtilisateur) {
         utilisateurRepository.deleteByNomUtilisateur(nomUtilisateur);
     }
+
+    @GetMapping("/id/{nomUtilisateur}")
+    public ResponseEntity<?> findUtilisateurIDwithNomUtilisateur(@PathVariable("nomUtilisateur") String nomUtilisateur) {
+        Utilisateur utilisateur = utilisateurRepository.findByNomUtilisateur(nomUtilisateur).orElse(null);
+        if (utilisateur != null) {
+            Map<String, String> response = new HashMap<>();
+            response.put("id", utilisateur.getId());
+            return ResponseEntity.ok().body(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
 }

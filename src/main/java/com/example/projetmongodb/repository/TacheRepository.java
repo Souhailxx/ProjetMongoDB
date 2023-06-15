@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface TacheRepository extends MongoRepository<Tache, String> {
 
+    int countDistinctById(String id);
+
     List<Tache> findByIdUtilisateur(String idUtilisateur);
 
 
@@ -18,4 +20,6 @@ public interface TacheRepository extends MongoRepository<Tache, String> {
     void deleteByTitre(String titre);
 
     Tache findTacheByTitre(String titre);
+
+
 }
